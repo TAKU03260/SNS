@@ -20,8 +20,16 @@
 
 
 //ログアウト中のページ
+
+use Illuminate\Support\Facades\Auth;
+
 Route::get('/login', 'Auth\LoginController@login');
 Route::post('/login', 'Auth\LoginController@login');
+
+
+Auth::routes();
+Route::get('/login', 'Auth\RegisterController@register');
+
 
 Route::get('/register', 'Auth\RegisterController@register');
 Route::post('/register', 'Auth\RegisterController@register');
@@ -30,14 +38,11 @@ Route::get('/added', 'Auth\RegisterController@added');
 
 
 //ログイン中のページ
-Route::get('/top','PostsController@index');
+Route::get('/top', 'PostsController@index');
 
-Route::get('/profile','UsersController@profile');
+Route::get('/profile', 'UsersController@profile');
 
-Route::get('/search','UsersController@index');
+Route::get('/search', 'UsersController@index');
 
-Route::get('/follow-list','PostsController@index');
-Route::get('/follower-list','PostsController@index');
-
-
-
+Route::get('/follow-list', 'PostsController@index');
+Route::get('/follower-list', 'PostsController@index');
