@@ -27,10 +27,6 @@ Route::get('/login', 'Auth\LoginController@login');
 Route::post('/login', 'Auth\LoginController@login');
 
 
-Auth::routes();
-Route::get('/login', 'Auth\RegisterController@register');
-
-
 Route::get('/register', 'Auth\RegisterController@register');
 Route::post('/register', 'Auth\RegisterController@register');
 
@@ -46,3 +42,5 @@ Route::get('/search', 'UsersController@index');
 
 Route::get('/follow-list', 'PostsController@index');
 Route::get('/follower-list', 'PostsController@index');
+
+Route::get('/logout', 'Auth\LoginController@logout');

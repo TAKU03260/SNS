@@ -24,11 +24,17 @@
 <body>
     <header>
         <div id="head">
-            <h1><a><img src="images/main_logo.png"></a></h1>
+            <h1><a href="login"><img src="images/main_logo.png"></a></h1>
             <div id="right_header">
                 <div id="profile">
 
-                    <p>おかえりなさい　<?php $user = Auth::user(); ?>{{ $user->username }}</p>
+                    <p>おかえりなさい　　{{Auth::user()->username}}さん
+
+
+                        <!--<?php $user = Auth::user(); ?>{{ $user->username }}でもOK-->
+
+
+                    </p>
                     <img src="images/arrow.png">
                     <img src="images/dawn.png">
                     <div>

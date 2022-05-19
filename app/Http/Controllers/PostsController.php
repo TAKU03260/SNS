@@ -16,4 +16,8 @@ class PostsController extends Controller
     {
         $this->middleware('auth');
     }
+    public function added()
+    {
+        return view('auth.added');
+    }
 }
