@@ -42,5 +42,9 @@ Route::get('/search', 'UsersController@index');
 
 Route::get('/follow-list', 'PostsController@index');
 Route::get('/follower-list', 'PostsController@index');
-
+//ログアウト変移
 Route::get('/logout', 'Auth\LoginController@logout');
+
+//投稿機能
+
+Route::get('create', 'PostsController@create');

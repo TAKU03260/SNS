@@ -37,7 +37,7 @@
                     </p>
                     <img src="images/arrow.png">
                     <img src="images/dawn.png">
-                    <div>
+                    <div id="basic_function">
                         <ul>
                             <li><a href="/top">ホーム</a></li>
                             <li><a href="/profile">プロフィール</a></li>
@@ -53,17 +53,21 @@
         <div id="side-bar">
             <div id="confirm">
                 <p><?php $user = Auth::user(); ?>{{ $user->username }}さんの</p>
+                <br>
                 <div>
                     <p>フォロー数</p>
                     <p>〇〇名</p>
                 </div>
+                <br>
                 <p class="btn"><a href="">フォローリスト</a></p>
                 <div>
                     <p>フォロワー数</p>
                     <p>〇〇名</p>
                 </div>
+                <br>
                 <p class="btn"><a href="">フォロワーリスト</a></p>
             </div>
+            <br>
             <p class="btn"><a href="">ユーザー検索</a></p>
         </div>
     </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+
 class PostsController extends Controller
 {
     //
@@ -16,8 +17,15 @@ class PostsController extends Controller
     {
         $this->middleware('auth');
     }
+
     public function added()
     {
         return view('auth.added');
+    }
+
+    public function create()
+    {
+        $list = DB::table('posts')->get();
+        return view('posts.index', ['list' => $list]);
     }
 }
