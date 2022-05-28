@@ -21,9 +21,10 @@
 
 //ログアウト中のページ
 
+use Illuminate\Database\Connectors\PostgresConnector;
 use Illuminate\Support\Facades\Auth;
 
-Route::get('/login', 'Auth\LoginController@login');
+Route::get('/login', 'Auth\LoginController@login')->name('login');
 Route::post('/login', 'Auth\LoginController@login');
 
 
@@ -38,13 +39,28 @@ Route::get('/top', 'PostsController@index');
 
 Route::get('/profile', 'UsersController@profile');
 
-Route::get('/search', 'UsersController@index');
+Route::get('/search', 'UsersController@search');
+
 
 Route::get('/follow-list', 'PostsController@index');
 Route::get('/follower-list', 'PostsController@index');
+
+
 //ログアウト変移
 Route::get('/logout', 'Auth\LoginController@logout');
 
 //投稿機能
 
-Route::get('create', 'PostsController@create');
+Route::post('post/create', 'PostsController@create');
+
+//更新
+Route::get('/post/{id}/updateForm', 'PostsController@updateForm');
+Route::post('/post/update', 'PostsController@update');
+
+
+//削除
+
+Route::get('/post/{id}/delete', 'PostsController@delete');
+
+
+//検索機能

@@ -12,16 +12,46 @@ header {
 /* main content */
 #row {
     display: flex;
+    flex: right;
     flex-flow: row wrap;
-}
 
+}
 
 
 #container {
     flex: 0 0 80%;
+    background-color: pink;
 }
 
 #side-bar {
-    flex: 0 0 19%;
-    border-left: 4px dotted #6C6C6C;
+    flex: 0 0 20;
+    border-left: 10px dotted #6C6C6C;
+}
+
+/*アコーディオンメニュー*/
+nav {
+    display: none;
+
+}
+
+.nav-open {
+    padding: 15px;
+    color: #fff;
+    font-size: 20px;
+    background: #2073c8;
+    position: relative;
+
+}
+
+.nav-open::before {
+    /* 閉じている時 */
+
+    position: absolute;
+    right: 100px;
+
+}
+
+.nav-open.active::before {
+    /* 開いている時 */
+
 }

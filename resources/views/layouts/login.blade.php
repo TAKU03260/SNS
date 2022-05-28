@@ -24,32 +24,47 @@
 <body>
     <header>
         <div id="head">
-            <h1><a href="login"><img src="images/main_logo.png"></a></h1>
+            <h1><a href="login"><img src="storage/images/main_logo.png"></a></h1>
             <div id="right_header">
                 <div id="profile">
-
-                    <p>おかえりなさい　　{{Auth::user()->username}}さん
-
-
-                        <!--<?php $user = Auth::user(); ?>{{ $user->username }}でもOK-->
+                    <p>
+                        <?php $user = Auth::user(); ?>{{ $user->username }}
 
 
                     </p>
-                    <img src="images/arrow.png">
-                    <img src="images/dawn.png">
-                    <div id="basic_function">
-                        <ul>
-                            <li><a href="/top">ホーム</a></li>
-                            <li><a href="/profile">プロフィール</a></li>
-                            <li><a href="/logout">ログアウト</a></li>
-                        </ul>
+
+
+
+                    <div class="basic_function">
+
+                        <p class="nav-open active">
+                            <img src="storage/images/arrow.png"><img src="storage/images/dawn.png">
+
+                        </p>
+                        <nav>
+                            <ul>
+
+                                <li><a href="/top">ホーム</a></li>
+                                <li><a href="/profile">プロフィール</a></li>
+                                <li><a href="/logout">ログアウト</a></li>
+                            </ul>
+                        </nav>
                     </div>
+
+
+
+
+
                 </div>
     </header>
     <div id="row">
+
+
         <div id="container">
             @yield('content')
         </div>
+
+
         <div id="side-bar">
             <div id="confirm">
                 <p><?php $user = Auth::user(); ?>{{ $user->username }}さんの</p>
@@ -68,13 +83,33 @@
                 <p class="btn"><a href="">フォロワーリスト</a></p>
             </div>
             <br>
-            <p class="btn"><a href="">ユーザー検索</a></p>
+
+            <!--検索機能-->
+            <p><a href="/search">ユーザー検索</a></p>
+
+
         </div>
     </div>
     <footer>
     </footer>
-    <script src="JavaScriptファイルのURL"></script>
-    <script src="JavaScriptファイルのURL"></script>
+    <script src="js/app.js"></script>
+    <script>
+        $(function() {
+            //クリックで動く
+            $('.nav-open').click(function() {
+                if ($(this).hasClass('active')) {
+                    $(this).toggleClass('active');
+                    $(this).next('nav').fadeOut();
+                } else {
+                    $(this).toggleClass('active');
+                    $(this).next('nav').fadeIn();
+                }
+            });
+
+
+        });
+    </script>
+
 </body>
 
 </html>

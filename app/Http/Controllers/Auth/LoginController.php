@@ -54,8 +54,9 @@ class LoginController extends Controller
 
 
 
-    protected function loggedOut(\Illuminate\Http\Request $request)
+    protected function logOut()
     {
+        Auth::logout();
         return redirect('login');
     }
 }
