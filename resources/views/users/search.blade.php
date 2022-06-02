@@ -10,11 +10,13 @@
 @foreach($users as $user)
 <img src="{{ asset('/storage/images/'.$user->images) }}">
 <p>{{ $user->username }}</p>
+<p><a href="#">フォローする</a></p>
 @endforeach
 
 <div class="search">
 
-  <form action="search.blade.php" method="post">
+  <form action="/search" method="post">
+    @csrf
     <input type="text" placeholder="検索" name="search" />
     <button type="submit" id="sbtn"><i class="fas fa-search">
         S

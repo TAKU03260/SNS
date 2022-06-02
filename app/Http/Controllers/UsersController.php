@@ -13,13 +13,18 @@ class UsersController extends Controller
     {
         return view('users.profile');
     }
-    public function search()
+    public function search(Request $request)
     {
-        $users = DB::table('users')->get();
-
-            ->select('username')
-            ->where('username like "%".$users."%"');
+        $users = DB::table('users')
+            ->where('id', '<>', Auth::id())
             ->get();
+        $keyword = $request->input('search');
+        if (isset($keyword)) {
+            $users = DB::table('users')
+                ->where('id', '<>', Auth::id())
+                ->where('username', 'like', "%$keyword%")
+                ->get();
+        }
 
 
         return view('users.search', compact('users'));
