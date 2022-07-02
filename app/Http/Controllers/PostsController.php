@@ -5,25 +5,36 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Auth;
+use App;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class PostsController extends Controller
 {
     //
     public function index()
     {
+        $follow_id = DB::table('follows')
+            ->where('follower', Auth::id())
+            ->pluck('follow');
+
         $posts = DB::table('posts')
             ->join('users', 'users.id', '=', 'posts.user_id')
             ->where('user_id', Auth::id())
-            ->select('users.username', 'users.images', 'users.id', 'users.created_at', 'posts.*')
+            ->orWhereIn('users.id', $follow_id)
+            ->select('users.username', 'users.images', 'users.id', 'posts.*')
+            ->orderBy('posts.created_at', 'desc')
             ->get();
+        $user = Auth::user();
 
-        return view('posts.index', compact('posts'));
+
+
+
+
+
+
+        return view('posts.index', compact('posts', 'user'));
     }
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     public function added()
     {
@@ -53,7 +64,10 @@ class PostsController extends Controller
         $post = DB::table('posts')
             ->where('id', $id)
             ->first();
-        return view('posts.updateForm', ['post' => $post]);
+        return view(
+            'posts.updateForm',
+            compact('post')
+        );
     }
 
 

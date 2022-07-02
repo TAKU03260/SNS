@@ -13,10 +13,16 @@ class UsersController extends Controller
     {
         return view('users.profile');
     }
+
+
+
     public function search(Request $request)
     {
         $users = DB::table('users')
             ->where('id', '<>', Auth::id())
+            ->get();
+        $followings = DB::table('follows')
+            ->where('follower', Auth::id())
             ->get();
         $keyword = $request->input('search');
         if (isset($keyword)) {
@@ -27,6 +33,6 @@ class UsersController extends Controller
         }
 
 
-        return view('users.search', compact('users'));
+        return view('users.search', compact('users', 'followings'));
     }
 }

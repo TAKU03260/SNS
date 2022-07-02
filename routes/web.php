@@ -21,6 +21,7 @@
 
 //ログアウト中のページ
 
+use App\Http\Controllers\FollowsController;
 use Illuminate\Database\Connectors\PostgresConnector;
 use Illuminate\Support\Facades\Auth;
 
@@ -37,14 +38,45 @@ Route::get('/added', 'Auth\RegisterController@added');
 //ログイン中のページ
 Route::get('/top', 'PostsController@index');
 
+
+
+
+
 Route::get('/profile', 'UsersController@profile');
 
 Route::get('/search', 'UsersController@search');
 Route::post('/search', 'UsersController@search');
 
 
-Route::get('/follow-list', 'PostsController@index');
-Route::get('/follower-list', 'PostsController@index');
+//フォロー・フォロワーリンク
+
+Route::get('/followList', 'FollowsController@followList');
+Route::get('/followerList', 'FollowsController@followerList');
+
+
+
+Route::get('/follow_profile', 'FollowsController@follow_profile');
+Route::get('/follower_profile', 'FollowsController@follower_profile');
+
+
+
+
+//フォロー・フォロワー数
+Route::get('/count_follow', 'FollowsController@count_follow');
+Route::get('/count_follower', 'FollowsController@count_follower');
+
+
+
+
+
+
+//フォローしている人のプロフィール画面
+
+Route::get('/follow_profile', 'FollowsController@follow_profile');
+Route::get('/{id}/follow_profile', 'FollowsController@follow_profile');
+
+Route::get('/follower_profile', 'FollowsController@follower_profile');
+Route::get('/{id}/follower_profile', 'FollowsController@follower_profile');
 
 
 //ログアウト変移
@@ -65,3 +97,7 @@ Route::get('/post/{id}/delete', 'PostsController@delete');
 
 
 //検索機能
+
+//フォロー機能
+Route::post('/follow/create', 'FollowsController@create');
+Route::post('/follow/delete', 'FollowsController@delete');

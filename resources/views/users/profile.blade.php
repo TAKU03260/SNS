@@ -22,15 +22,16 @@
     </tr>
     <tr>
       <th>new Password</th>
-      <td>{{ Auth::user()->experience }}</td>
+      <td><input type="password" name="new_password"></td>
     </tr>
     <tr>
       <th>Bio</th>
-      <td>{{ Auth::user()->experience }}</td>
+      <td>{{Auth::user()->bio}}
+      <td>
     </tr>
     <tr>
       <th>Icon Image</th>
-      <td>{{ Auth::user()->experience }}</td>
+      <td><img src="{{ asset('/storage/images/'. Auth::user()->images) }}"></td>
     </tr>
   </table>
 

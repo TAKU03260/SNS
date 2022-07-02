@@ -7,8 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="description" content="ページの内容を表す文章" />
     <title></title>
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="{{ asset('css/reset.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <!--スマホ,タブレット対応-->
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <!--サイトのアイコン指定-->
@@ -23,29 +23,30 @@
 
 <body>
     <header>
+
+
         <div id="head">
-            <h1><a href="login"><img src="storage/images/main_logo.png"></a></h1>
+            <h1><a href="login"><img src="{{ asset('/storage/images/main_logo.png') }}"></a></h1>
             <div id="right_header">
                 <div id="profile">
                     <p>
-                        <?php $user = Auth::user(); ?>{{ $user->username }}
+                        おかえりなさい<?php $user = Auth::user(); ?>{{ $user->username }}
 
 
                     </p>
 
-
-
                     <div class="basic_function">
 
                         <p class="nav-open active">
-                            <img src="storage/images/arrow.png"><img src="storage/images/dawn.png">
+                            <img src="{{ asset('/storage/images/arrow.png') }}"><img src="{{ asset('/storage/images/dawn.png')}}">
 
                         </p>
+
                         <nav>
                             <ul>
 
-                                <li><a href="/top">ホーム</a></li>
-                                <li><a href="/profile">プロフィール</a></li>
+                                <li><a href="/top">HOME</a></li>
+                                <li><a href="/profile">プロフィール編集</a></li>
                                 <li><a href="/logout">ログアウト</a></li>
                             </ul>
                         </nav>
@@ -66,21 +67,23 @@
 
 
         <div id="side-bar">
+
             <div id="confirm">
-                <p><?php $user = Auth::user(); ?>{{ $user->username }}さんの</p>
+
+                <p>{{ $user->username }}さんの</p>
                 <br>
                 <div>
                     <p>フォロー数</p>
-                    <p>〇〇名</p>
+                    <p>{{ $data1 }}名</p>
                 </div>
                 <br>
-                <p class="btn"><a href="">フォローリスト</a></p>
+                <p class="btn"><a href="/followList">フォローリスト</a></p>
                 <div>
                     <p>フォロワー数</p>
-                    <p>〇〇名</p>
+                    <p>{{$data2}}名</p>
                 </div>
                 <br>
-                <p class="btn"><a href="">フォロワーリスト</a></p>
+                <p class="btn"><a href="/followerList">フォロワーリスト</a></p>
             </div>
             <br>
 
@@ -92,7 +95,7 @@
     </div>
     <footer>
     </footer>
-    <script src="js/app.js"></script>
+    <script src="{{ asset('js/app.js')}}"></script>
     <script>
         $(function() {
             //クリックで動く
