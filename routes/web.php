@@ -22,6 +22,7 @@
 //ログアウト中のページ
 
 use App\Http\Controllers\FollowsController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Database\Connectors\PostgresConnector;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,69 +36,66 @@ Route::post('/register', 'Auth\RegisterController@register');
 Route::get('/added', 'Auth\RegisterController@added');
 
 
+
+
+
 //ログイン中のページ
 Route::get('/top', 'PostsController@index');
 
+//postコントローラーの中のindexメソッドはurlが/topの時に実行される
 
-
-
-
-Route::get('/profile', 'UsersController@profile');
-
-Route::get('/search', 'UsersController@search');
-Route::post('/search', 'UsersController@search');
-
-
-//フォロー・フォロワーリンク
-
-Route::get('/followList', 'FollowsController@followList');
-Route::get('/followerList', 'FollowsController@followerList');
-
-
-
-Route::get('/follow_profile', 'FollowsController@follow_profile');
-Route::get('/follower_profile', 'FollowsController@follower_profile');
-
-
-
-
-//フォロー・フォロワー数
-Route::get('/count_follow', 'FollowsController@count_follow');
-Route::get('/count_follower', 'FollowsController@count_follower');
-
-
-
-
-
-
-//フォローしている人のプロフィール画面
-
-Route::get('/follow_profile', 'FollowsController@follow_profile');
-Route::get('/{id}/follow_profile', 'FollowsController@follow_profile');
-
-Route::get('/follower_profile', 'FollowsController@follower_profile');
-Route::get('/{id}/follower_profile', 'FollowsController@follower_profile');
-
-
-//ログアウト変移
-Route::get('/logout', 'Auth\LoginController@logout');
-
-//投稿機能
+//基本的な機能
+//投稿機能➀
 
 Route::post('post/create', 'PostsController@create');
 
-//更新
+//更新➁
 Route::get('/post/{id}/updateForm', 'PostsController@updateForm');
 Route::post('/post/update', 'PostsController@update');
 
-
-//削除
+//削除➂
 
 Route::get('/post/{id}/delete', 'PostsController@delete');
 
 
-//検索機能
 
-//フォロー機能
+//フォロー・フォロワーの関する機能
+
+
+//フォロー・フォロワーの一覧表示➀
+Route::get('/followList', 'FollowsController@followList');
+Route::get('/followerList', 'FollowsController@followerList');
+
+//フォロー・フォロワー一覧の表示から個人のプロフィールに行くための機能➁
+
+//follow
+Route::get('/follow_profile', 'FollowsController@follow_profile');
+Route::get('/{id}/follow_profile', 'FollowsController@follow_profile');
+//follower
+Route::get('/follower_profile', 'FollowsController@follower_profile');
+Route::get('/{id}/follower_profile', 'FollowsController@follower_profile');
+
+//フォローを外す・付ける機能➂
 Route::post('/follow/create', 'FollowsController@create');
 Route::post('/follow/delete', 'FollowsController@delete');
+
+
+
+//ログインユーザーのプロフィールを編集する機能
+Route::get('/profile', 'UsersController@profile');
+
+//プロフィールの更新機能➀
+
+Route::post('/profile/update', 'UsersController@update');
+
+
+
+//ユーザーを検索するための機能
+Route::get('/search', 'UsersController@search');
+Route::post('/search', 'UsersController@search');
+//post通信のため必要
+
+
+
+//ログアウト変移
+Route::get('/logout', 'Auth\LoginController@logout');

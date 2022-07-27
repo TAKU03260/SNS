@@ -5,15 +5,28 @@
 {!! Form::open() !!}
 
 <p>DAWNSNSへようこそ</p>
+<div class="login-form">
 
-{{ Form::label('MailAdress') }}
-{{ Form::text('mail',null,['class' => 'input']) }}
-{{ Form::label('Password') }}
-{{ Form::password('password',['class' => 'input']) }}
+  <div class="login-MailAdress">
+    {{ Form::label('MailAdress') }}
+    <br>
+    {{ Form::text('mail',null,['class' => 'input']) }}
+  </div>
+  <br><br>
+  <div class="login-Password">
+    {{ Form::label('Password') }}
+    <br>
+    {{ Form::password('password',['class' => 'input']) }}
+  </div>
+  <br>
+  <btn>
+    {{ Form::submit('LOGIN',['class' => 'btn']) }}
 
-{{ Form::submit('ログイン') }}
-<p><a href="/register">新規ユーザーの方はこちら</a></p>
+  </btn>
+  <p><a href="/register">新規ユーザーの方はこちら</a></p>
 
-{!! Form::close() !!}
 
-@endsection
+
+  {!! Form::close() !!}
+
+  @endsection

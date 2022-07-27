@@ -14,8 +14,56 @@
 
 
 
-<a href="/{{$follower_user->id}}/follower_profile"><img src="{{ asset('/storage/images/'.$user->images) }}"></a>
+<a href="/{{$follower_user->id}}/follower_profile"><img src="{{ asset('/storage/images/'.$follower_user->images) }}"></a>
 @endforeach
+
+
+<!--フォローしている人の投稿一覧-->
+
+
+
+<table>
+
+
+  <tr>
+    <th>画像</th>
+    <th>投稿者</th>
+    <th>投稿日時</th>
+    <th>投稿内容</th>
+    <th></th>
+  </tr>
+
+
+
+
+
+
+
+
+  @foreach($posts as $post)
+  <tr>
+
+    <td><a href="/{{$post->id}}/follow_profile"><img src="{{ asset('/storage/images/'.$post->images) }}"></a></td>
+
+    <td> {{$post->username}}</td>
+    <td> {{$post->posts}}</td>
+    <td> {{$post->created_at}}</td>
+
+
+
+
+
+
+  </tr>
+
+  @endforeach
+</table>
+
+
+
+
+
+
 
 
 @endsection

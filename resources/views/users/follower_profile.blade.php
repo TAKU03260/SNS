@@ -8,6 +8,7 @@
 <p>{{ $user->username }}</p>
 <p>{{$user->bio}}</p>
 <br><br>
+
 @if($followings->contains('follow',$user->id))
 {{Form::open(['url' =>'follow/delete'])}}
 {{Form::hidden('id',$user->id)}}

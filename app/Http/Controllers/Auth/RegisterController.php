@@ -53,14 +53,14 @@ class RegisterController extends Controller
 
             'username' => 'required|string|min:4|max:12',
 
-            'mail' => 'required|min:4|max:30|unique:users',
+            'mail' => 'email|required|min:4|max:30|unique:users',
 
-            'password' => 'required|alpha_num|min:4|max:20|unique:users',
+            'password' => 'required|alpha_num|min:4|max:20',
 
             'password-confirm' => 'required|alpha_num|min:4|max:20|same:password',
         ], [
             'username.required' => '名前は必須です',
-            'mail.required' => 'メールアドレスは必須です',
+            'mail.same' => 'メールアドレスは必須です',
             'password.required' => 'パスワードは必須です',
             'password-confirm.required' => '一致していません',
         ])->validate();
@@ -99,6 +99,8 @@ class RegisterController extends Controller
         return view('auth.register');
     }
 
+
+
     public function added()
     {
         $user = DB::table('users')
@@ -106,4 +108,14 @@ class RegisterController extends Controller
             ->first();
         return view('auth.added', compact('user'));
     }
+
+
+
+
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $profile_update
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
 }

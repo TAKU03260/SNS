@@ -4,37 +4,58 @@
 
 {!! Form::open() !!}
 
-<h2>新規ユーザー登録</h2>
 
-{{ Form::label('ユーザー名') }}
-{{ Form::text('username',null,['class' => 'input']) }}
+<div class="form-group">
+  <p>UserName</p>
 
-@if ($errors->has('username'))
-{{$errors->first('username')}}
-@endif
-
-{{ Form::label('メールアドレス') }}
-{{ Form::text('mail',null,['class' => 'input']) }}
-
-@if ($errors->has('mail'))
-{{$errors->first('mail')}}
-@endif
-
-{{ Form::label('パスワード') }}
-{{ Form::text('password',null,['class' => 'input']) }}
-
-@if ($errors->has('password'))
-{{$errors->first('password')}}
-@endif
+  {!! Form::input('text', 'username',null,['required']) !!}
 
 
-{{ Form::label('パスワード確認') }}
-{{ Form::text('password-confirm',null,['class' => 'input']) }}
 
 
-@if ($errors->has('password-confirm'))
-{{$errors->first('password-confirm')}}
-@endif
+
+  @if ($errors->has('username'))
+  {{$errors->first('username')}}
+  @endif
+
+</div>
+
+<div class="form-group">
+  <p>MailAdress</p>
+  {!! Form::input('text', 'mail',null, ['required']) !!}
+
+
+  @if ($errors->has('mail'))
+  {{$errors->first('mail')}}
+  @endif
+
+
+
+</div>
+
+<div class="form-group">
+
+
+  <p>Password</p>
+  {!! Form::input('password', 'password',null, [ 'class' => 'form-control']) !!}
+
+  @if ($errors->has('password'))
+  {{$errors->first('password')}}
+  @endif
+</div>
+
+
+
+<div class="form-group">
+  <p>Password confirm</p>
+  {!! Form::input('password', 'password-confirm', null, [ 'class' => 'form-control']) !!}
+
+
+  @if ($errors->has('password-confirm'))
+  {{$errors->first('password-confirm')}}
+  @endif
+
+</div>
 
 {{ Form::submit('登録') }}
 

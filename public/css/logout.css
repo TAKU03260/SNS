@@ -1,9 +1,29 @@
 @chasert "utf-8";
 
-html{
+html {
     height: 100%;
 }
-body{
+
+body {
     height: 100%;
-    background: #3C4767;
+    background: linear-gradient(#3C4767 30%, #d6573d);
+    color: white;
+}
+
+a:visited {
+    color: azure;
+}
+
+a:hover {
+    color: aqua;
+}
+
+.input {
+    border-radius: 5px;
+
+}
+
+.btn {
+    background-color: lightsteelblue;
+    border-radius: 5px;
 }

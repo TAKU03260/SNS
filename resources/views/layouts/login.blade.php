@@ -5,19 +5,19 @@
     <meta charset="utf-8" />
     <!--IEブラウザ対策-->
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="ページの内容を表す文章" />
-    <title></title>
+    <meta name="description" content="SNS" />
+    <title>SNS</title>
     <link rel="stylesheet" href="{{ asset('css/reset.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <!--スマホ,タブレット対応-->
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <!--サイトのアイコン指定-->
-    <link rel="icon" href="画像URL" sizes="16x16" type="image/png" />
-    <link rel="icon" href="画像URL" sizes="32x32" type="image/png" />
-    <link rel="icon" href="画像URL" sizes="48x48" type="image/png" />
-    <link rel="icon" href="画像URL" sizes="62x62" type="image/png" />
+    <link rel="icon" href="https://hri-group.jp/images/favicon.ico" sizes="16x16" type="image/png" />
+    <link rel="icon" href="https://hri-group.jp/images/favicon.ico" sizes="32x32" type="image/png" />
+    <link rel="icon" href="https://hri-group.jp/images/favicon.ico" sizes="48x48" type="image/png" />
+    <link rel="icon" href="https://hri-group.jp/images/favicon.ico" sizes="62x62" type="image/png" />
     <!--iphoneのアプリアイコン指定-->
-    <link rel="apple-touch-icon-precomposed" href="画像のURL" />
+    <link rel="apple-touch-icon-precomposed" href="https://hri-group.jp/images/favicon.ico" />
     <!--OGPタグ/twitterカード-->
 </head>
 
@@ -26,7 +26,7 @@
 
 
         <div id="head">
-            <h1><a href="login"><img src="{{ asset('/storage/images/main_logo.png') }}"></a></h1>
+            <h1><a href="login"><img src="{{ asset('/storage/images/main_logo.png') }}" class="top_image"></a></h1>
             <div id="right_header">
                 <div id="profile">
                     <p>
@@ -35,11 +35,10 @@
 
                     </p>
 
-                    <div class="basic_function">
+                    <div class=" basic_function">
 
                         <p class="nav-open active">
-                            <img src="{{ asset('/storage/images/arrow.png') }}"><img src="{{ asset('/storage/images/dawn.png')}}">
-
+                            <img src="{{ asset('/storage/images/arrow.png') }}"> <img src="{{ asset('/storage/images/'.$user->images) }}">
                         </p>
 
                         <nav>
@@ -72,12 +71,19 @@
 
                 <p>{{ $user->username }}さんの</p>
                 <br>
+
+
                 <div>
                     <p>フォロー数</p>
                     <p>{{ $data1 }}名</p>
                 </div>
+
+
                 <br>
                 <p class="btn"><a href="/followList">フォローリスト</a></p>
+
+                <hr>
+
                 <div>
                     <p>フォロワー数</p>
                     <p>{{$data2}}名</p>
@@ -86,6 +92,9 @@
                 <p class="btn"><a href="/followerList">フォロワーリスト</a></p>
             </div>
             <br>
+
+
+            <hr>
 
             <!--検索機能-->
             <p><a href="/search">ユーザー検索</a></p>
@@ -110,6 +119,22 @@
             });
 
 
+        });
+
+
+        const overlay = $("#js-overlay");
+
+        $('.modal-open').on('click', function() { //ボタンをクリックしたら
+            var target = $(this).data('target');
+            var modal = document.getElementById(target);
+            console.log(modal);
+            $(modal).addClass("open"); // modalクラスにopenクラス付与
+            overlay.addClass("open"); // overlayクラスにopenクラス付与
+        });
+        $(".modal-close").on('click', function() { //×ボタンをクリックしたら
+            console.log(1);
+            $(".modal").removeClass("open"); // overlayクラスからopenクラスを外す
+            overlay.removeClass("open"); // overlayクラスからopenクラスを外す
         });
     </script>
 

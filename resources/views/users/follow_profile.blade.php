@@ -5,8 +5,8 @@
 
 
 <img src="{{ asset('/storage/images/'.$user->images) }}">
-<p>NAME　　　{{ $user->username }}</p>
-<p>BIO　　　{{$user->bio}}</p>
+<p>NAME：{{ $user->username }}</p>
+<p>BIO：{{$user->bio}}</p>
 <br><br>
 
 @if($followings->contains('follow',$user->id))

@@ -4,11 +4,12 @@
 
 <h1>Laravelを使った投稿機能の実装</h1>
 
-<p>投稿する</p>
+
 <div class='container'>
 
 
   <h2 class='page-header'>新しく投稿をする</h2>
+
   {!! Form::open(['url' => 'post/create']) !!}
   <div class="form-group">
     {!! Form::input('text', 'newPost', null, ['required', 'class' => 'form-control', 'placeholder' => '投稿内容']) !!}
@@ -19,7 +20,7 @@
 
 
 </div>
-
+<hr>
 
 <br><br><br><br><br>
 <table>
@@ -38,7 +39,8 @@
   @foreach($posts as $post)
   <tr>
 
-    <td> <img src="{{ asset('/storage/images/'.$user->images) }}"></td>
+    <td> <img src="{{ asset('/storage/images/'.$post->images) }}"></td>
+
     <td> {{$post->username}}</td>
     <td> {{$post->posts}}</td>
     <td> {{$post->created_at}}</td>
@@ -46,12 +48,52 @@
 
     @if($post->user_id === Auth::id())
     <!--PostsテーブルのUser_idとログインしているユーザーが一致しているときのみ表示する-->
+
+
     <!--編集用のボタン-->
-    <td><a class="btn btn-primary" href="/post/{{$post->id}}/updateForm"><img src="storage/images/edit.png"></a></td>
+    <td>
+
+      <button class="modal-open btn btn-danger" id="js-open" data-target="modal{{ $post->id }}"><img src="{{ asset('/storage/images/edit.png')}}"></button>
+    </td>
+
+
+
+
+    <div class="overlay" id="js-overlay"></div>
+
+
+    <div id="modal{{ $post->id }}" class="modal">
+      <div id="js-modal">
+
+        {!! Form::open(['url' => '/post/update']) !!}
+        <div class="form-group">
+          {!! Form::hidden('id', $post->id) !!}
+          {!! Form::input('text', 'upPost', $post->posts, ['required', 'class' => 'form-control']) !!}
+        </div>
+
+
+        <button type="submit" class="btn btn-primary pull-right"><img src="{{ asset('/storage/images/edit.png')}}"></button>
+        {!! Form::close() !!}</p>
+        <div class="modal-close__wrap">
+          <button class="modal-close" id="js-close">
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+
+
+
 
     <!--削除ボタン-->
     <td>
-      <a class="btn btn-danger" href="/post/{{$post->id}}/delete" onclick="return confirm('こちらの投稿を削除してもよろしいでしょうか？')"><img src="storage/images/trash.png"></a>
+      <a class="btn btn-danger btn-reverse" href="/post/{{$post->id}}/delete" onclick="return confirm('こちらの投稿を削除してもよろしいでしょうか？')"><img src="{{ asset('/storage/images/trash.png')}}"></a>
     </td>
 
     @endif
@@ -59,4 +101,12 @@
 
   @endforeach
 </table>
+
+
+
+
+
+
+
+
 @endsection
