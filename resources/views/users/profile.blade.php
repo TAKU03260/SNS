@@ -13,6 +13,7 @@
   <div class='container'>
 
     {!! Form::open(array('url' => '/profile/update','files'=> true)) !!}
+    <!---->
     <!--FORMタグ始めの記述-->
 
     <div class="form-group">

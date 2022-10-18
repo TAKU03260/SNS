@@ -14,7 +14,7 @@
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-// Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
 
 //Auth::routes();
 
@@ -32,12 +32,11 @@ Route::post('/login', 'Auth\LoginController@login');
 
 Route::get('/register', 'Auth\RegisterController@register');
 Route::post('/register', 'Auth\RegisterController@register');
+//個人情報の登録は情報は開示してはいけないためpost通信
 
 Route::get('/added', 'Auth\RegisterController@added');
 
-
-
-
+Route::get('/test', 'PostsController@test');
 
 //ログイン中のページ
 Route::get('/top', 'PostsController@index');
@@ -68,11 +67,9 @@ Route::get('/followerList', 'FollowsController@followerList');
 
 //フォロー・フォロワー一覧の表示から個人のプロフィールに行くための機能➁
 
-//follow
-Route::get('/follow_profile', 'FollowsController@follow_profile');
+//follow_list
 Route::get('/{id}/follow_profile', 'FollowsController@follow_profile');
-//follower
-Route::get('/follower_profile', 'FollowsController@follower_profile');
+//follower_list
 Route::get('/{id}/follower_profile', 'FollowsController@follower_profile');
 
 //フォローを外す・付ける機能➂
@@ -84,7 +81,7 @@ Route::post('/follow/delete', 'FollowsController@delete');
 //ログインユーザーのプロフィールを編集する機能
 Route::get('/profile', 'UsersController@profile');
 
-//プロフィールの更新機能➀
+//プロフィールの更新機能
 
 Route::post('/profile/update', 'UsersController@update');
 

@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Auth;
-use App;
-use Illuminate\Support\Facades\Auth as FacadesAuth;
+
+
+
 
 class PostsController extends Controller
 {
-    //
+
     public function index(Request $request)
     {
         $follow_id = DB::table('follows')
@@ -30,9 +31,19 @@ class PostsController extends Controller
             ->orderBy('posts.created_at', 'desc')
             //postsテーブルのcerated_atが新しい順(desc)で並べる<>asc
             ->get();
+
         $user = Auth::user();
+        //ログインユーザーを$userと定義
 
+        $request->validate(
+            [
+                'upPost' => ['min:10', 'max:300'],
 
+            ],
+            [
+                'upPost.min' => '10文字以上でお願いします。'
+            ]
+        );
 
 
         return view('posts.index', compact('posts', 'user'));
@@ -40,35 +51,36 @@ class PostsController extends Controller
 
     }
 
-
+    //ユーザー登録完了画面
     public function added()
     {
         return view('auth.added');
     }
+
+
 
     //投稿内容の作成メソッド
 
     public function create(Request $request)
     {
         $post = $request->input('newPost');
-        //name属性が'newPost'に入力されたものを$postして変数定義する。
+        //name属性'newPost'に入力されたものを$postして変数定義する。
         DB::table('posts')->insert([
             'posts' => $post,
-            //name属性がnewpostに入力されたものをpostsカラムに入れる
+            //name属性'newPost'に入力されたものをpostsカラムに入れる
             'user_id' => Auth::id(),
             //user_idに現在ログインしているユーザーを入れる
             'created_at' => now(),
             'updated_at' => now(),
             //制作日時と更新日時には現在の時刻を入れる
 
-            //POstsテーブルに要素入れていく。
+            //insertでPostsテーブルに要素入れていく。
         ]);
 
         return redirect('/top');
     }
 
     //投稿内容の更新メソッド
-
     public function update(Request $request)
     {
         $id = $request->input('id');
@@ -96,5 +108,17 @@ class PostsController extends Controller
         //選択したidが一致するものを削除
 
         return redirect('/top');
+    }
+
+
+    public function test(Request $request)
+    {
+        $posts = DB::table('posts')
+            ->join('users', 'users.id', '=', 'posts.user_id')
+            ->where('posts.user_id', Auth::id())
+            ->select('users.username', 'users.images', 'users.id', 'posts.*')
+            ->orderBy('posts.created_at', 'desc')
+            ->get();
+        return view('posts.test', compact('posts'));
     }
 }

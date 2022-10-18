@@ -20,7 +20,7 @@ class FollowsController extends Controller
         $follow_id = DB::table('follows')
             ->where('follower', Auth::id())
             ->pluck('follow');
-        //followsテーブル内のfollowerとログインユーザーが一致すし、follow以外をfollow_idとして定義する。followカラムを持ってくる。
+        //followsテーブル内のfollowerとログインユーザーが一致したものを、followに入っているデータををfollow_idとして定義する。followカラムを持ってくる。
 
 
 
@@ -31,19 +31,20 @@ class FollowsController extends Controller
 
         $posts = DB::table('posts')
             ->join('users', 'users.id', '=', 'posts.user_id')
-            //postsテーブルのuser_idとusersテーブルのidを統合したものを$posts変数と定義。
+            //postsテーブルのuser_idとusersテーブルのidを統合する。
 
             ->WhereIn('users.id', $follow_id)
             //もしくはuser_idとfollow_idが一致する複数のモノ
             ->select('users.username', 'users.images', 'posts.*', 'users.id')
             ->orderBy('posts.created_at', 'desc')
-            //postsテーブルのcerated_atを新しい順(desc)で並べる<>asc
+            //postsテーブルのcerated_atを新しい順(desc)で並べる。逆はasc
             ->get();
 
 
 
 
         return view('follows.followList', compact('user', 'follow_users', 'posts'));
+        //compact関数はデータの受け渡し方を定義する
     }
 
     //以下はfollowListと同じ
@@ -52,6 +53,7 @@ class FollowsController extends Controller
 
     {
         $user = Auth::user();
+
         $follower_id = DB::table('follows')
             ->where('follow', Auth::id())
             ->pluck('follower');
@@ -81,25 +83,27 @@ class FollowsController extends Controller
 
 
 
-    //フォローするための機能
+    //フォローする機能
     public function create(Request $request)
     {
 
         DB::table('follows')
-
             ->insert([
                 'follow' => $request->input('id'),
+                //followにrequestで取ってきたidを入れる。
                 'follower' => Auth::id(),
+                //followerに自分のidを入れる。
             ]);
+
         //followsテーブルに、カラムを挿入する。
-        //followにrequestで取ってきたidを入れる。
-        //followerに自分のidを入れる。
+
         return back();
+        //同じページにリダイレクトする。
     }
 
 
 
-    //フォロー外すための機能
+    //フォロー外す機能
     public function delete(Request $request)
     {
         DB::table('follows')
@@ -121,21 +125,23 @@ class FollowsController extends Controller
         $user = DB::table('users')
             ->where('id', $id)
             ->first();
-        //usersテーブルのidと選択したidと同じときuser変数として定義。
+        //usersテーブルのidと選択したidと同じとき、user変数として定義。
 
         $posts = DB::table('posts')
             ->join('users', 'users.id', '=', 'posts.user_id')
             //userテーブルのidとpostsテーブルのuser_idを繋げる。
             ->where('user_id', $id)
+            //user_idと選択したidが一致するとき。
             ->select('users.id', 'username', 'user_id', 'users.images', 'posts', 'posts.created_at as created_at')
             //何をテーブルから持ってくるのかを定義する。
             ->orderBy('posts.created_at', 'desc')
-            //'posts'→tableを定義しているのでどこのtableかはしていしているので必要無し。
+            //postsテーブルのcreated_atが新しい順に取り出す。
             ->get();
 
         $followings = DB::table('follows')
             ->where('follower', Auth::id())
             ->get();
+
         //followsテーブルのfollowerカラムとログインユーザーが一致するものをfollowingsと定義。
         return view('users.follow_profile', compact('user', 'posts', 'followings'));
     }
@@ -144,7 +150,6 @@ class FollowsController extends Controller
 
     //上記のfollow_profileと同じ記述
     public function follower_profile($id)
-
 
     {
 

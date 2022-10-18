@@ -23,6 +23,8 @@
 <hr>
 
 <br><br><br><br><br>
+
+
 <table>
   <tr>
     <th>画像</th>
@@ -70,8 +72,6 @@
           {!! Form::hidden('id', $post->id) !!}
           {!! Form::input('text', 'upPost', $post->posts, ['required', 'class' => 'form-control']) !!}
         </div>
-
-
         <button type="submit" class="btn btn-primary pull-right"><img src="{{ asset('/storage/images/edit.png')}}"></button>
         {!! Form::close() !!}</p>
         <div class="modal-close__wrap">
@@ -85,19 +85,17 @@
     </div>
 
 
-
-
-
-
-
-
     <!--削除ボタン-->
     <td>
-      <a class="btn btn-danger btn-reverse" href="/post/{{$post->id}}/delete" onclick="return confirm('こちらの投稿を削除してもよろしいでしょうか？')"><img src="{{ asset('/storage/images/trash.png')}}"></a>
+      <a class="btn btn-danger btn-reverse" href="/post/{{$post->id}}/delete" onclick="return confirm('こちらの投稿を削除してもよろしいでしょうか？')">
+        <img src="{{ asset('/storage/images/trash.png')}}">
+      </a>
     </td>
 
     @endif
   </tr>
+
+
 
   @endforeach
 </table>

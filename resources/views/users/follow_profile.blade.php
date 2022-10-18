@@ -26,7 +26,7 @@
 
 @foreach($posts as $post)
 <p>
-  <img src="{{ asset('/storage/images/'.$user->images) }}">
+  <img src="{{ asset('/storage/images/'.$post->images) }}">
   {{$post->username}}
   {{$post->posts}}
   {{$post->created_at}}

@@ -13,6 +13,7 @@
 <p>{{ $user->username }}</p>
 
 
+
 @if($followings->contains('follow',$user->id))
 <!--followカラムの中に自分のidが含まれていれば外す-->
 {{Form::open(['url' =>'follow/delete'])}}
@@ -30,7 +31,7 @@
 @endforeach
 
 
-<p></p>
+
 <div class="search">
 
   <form action="/search" method="post">

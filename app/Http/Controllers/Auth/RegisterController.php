@@ -52,17 +52,14 @@ class RegisterController extends Controller
         return Validator::make($data, [
 
             'username' => 'required|string|min:4|max:12',
-
             'mail' => 'email|required|min:4|max:30|unique:users',
-
             'password' => 'required|alpha_num|min:4|max:20',
-
             'password-confirm' => 'required|alpha_num|min:4|max:20|same:password',
         ], [
             'username.required' => '名前は必須です',
             'mail.same' => 'メールアドレスは必須です',
             'password.required' => 'パスワードは必須です',
-            'password-confirm.required' => '一致していません',
+            'password-confirm.same' => '一致していません',
         ])->validate();
     }
 

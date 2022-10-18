@@ -9,15 +9,16 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
 {
-    //
+
     public function profile()
     {
-
         $user = Auth::user();
+        //ログインユーザーを$userと定義
+
         return view('users.profile', compact('user'));
         //profileメソッドを経由するとき、usersファイルのprofile.bladeを開く設定。
 
@@ -35,7 +36,7 @@ class UsersController extends Controller
 
                 'mail' => ['email', 'required', 'min:4', 'max:30', Rule::unique('users', 'mail')->ignore($auth_mail, 'mail')],
 
-                //Rule::unique('users','mail')はusersテーブルのmailカラムに登録をあるものは除外する。ignore($auth_mail,'mail')は取得した変数を除く。＞ログインしているユーザーは除くということ。
+                //Rule::unique('users','mail')はusersテーブルのmailカラムに登録をあるものは除外する。ignore($auth_mail,'mail')は取得した変数を除く。->ログインしているユーザーは除くということ。*すでに使われていますというメッセージが表示されないように。
 
 
                 'newpassword' => ['alpha_num', 'min:4', 'max:12'],
@@ -50,18 +51,11 @@ class UsersController extends Controller
                 'mail.required' => 'メールアドレスは必須です',
                 'mail.min' => '4文字以上でお願いします',
                 'mail.max' => '12文字以下でお願いします',
-
-
                 'newpassword.min' => '4文字以上でお願いします。',
-
                 'bio.max' => '200文字まで入力可能です',
-                // 'image.image' => '指定のファイル以外不可です',
+
             ]
         );
-
-
-
-        $id = Auth::id();
 
 
 
@@ -104,6 +98,7 @@ class UsersController extends Controller
         if (request('images')) {
             $images = $request->file('images')->getClientOriginalName();
             $request->file('images')->storeAs('public/images', $images);
+            //選択された画像を保存する記述
         } else {
             $images = DB::table('users')
                 ->where('id', Auth::id())
@@ -111,7 +106,7 @@ class UsersController extends Controller
         }
 
         DB::table('users')
-            ->where('id', $id)
+            ->where('id', Auth::id())
             ->update(
                 [
                     'bio' => $bio,
@@ -127,7 +122,7 @@ class UsersController extends Controller
     }
 
 
-    //userテーブルにユーザー登録があるものを出すための機能
+    //検索機能
     public function search(Request $request)
     {
         $users = DB::table('users')

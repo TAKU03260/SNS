@@ -35,34 +35,20 @@
 
 
 
-
-
-
-
-
   @foreach($posts as $post)
   <tr>
-
-    <td><a href="/{{$post->id}}/follow_profile"><img src="{{ asset('/storage/images/'.$post->images) }}"></a></td>
-
+    <td>
+      <a href="/{{$post->id}}/follow_profile">
+        <img src="{{ asset('/storage/images/'.$post->images) }}">
+      </a>
+    </td>
     <td> {{$post->username}}</td>
     <td> {{$post->posts}}</td>
     <td> {{$post->created_at}}</td>
-
-
-
-
-
-
   </tr>
 
   @endforeach
 </table>
-
-
-
-
-
 
 
 

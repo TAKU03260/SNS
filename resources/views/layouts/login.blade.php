@@ -7,8 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="description" content="SNS" />
     <title>SNS</title>
+    <!--tabの表示名-->
     <link rel="stylesheet" href="{{ asset('css/reset.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
     <!--スマホ,タブレット対応-->
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <!--サイトのアイコン指定-->
@@ -47,6 +49,7 @@
                                 <li><a href="/top">HOME</a></li>
                                 <li><a href="/profile">プロフィール編集</a></li>
                                 <li><a href="/logout">ログアウト</a></li>
+                                <li><a href="/test">TEST</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -62,6 +65,9 @@
 
         <div id="container">
             @yield('content')
+
+
+
         </div>
 
 
